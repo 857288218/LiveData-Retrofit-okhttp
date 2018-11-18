@@ -18,7 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by liukun on 16/3/9.相当于钱包内核
+ * 相当于内核,调用接口返回一个liveData
  */
 public class HttpMethods {
 

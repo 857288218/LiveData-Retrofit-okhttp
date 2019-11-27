@@ -6,6 +6,8 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.example.rjq.myapplication.entity.HttpResult;
 import com.example.rjq.myapplication.entity.Subject;
+import com.example.rjq.myapplication.entity.User;
+import com.example.rjq.myapplication.entity.WanResponse;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class HttpMethods {
 
-    public static final String BASE_URL = "https://api.douban.com/v2/movie/";
+    public static final String BASE_URL = "https://www.wanandroid.com";
 
     private static final int DEFAULT_TIMEOUT = 8;
 
@@ -78,4 +80,19 @@ public class HttpMethods {
         return liveData;
     }
 
+    public LiveData<WanResponse<User>> login(String name, String pwd) {
+        final MutableLiveData<WanResponse<User>> liveData = new MutableLiveData<>();
+        movieService.loginAsync(name, pwd).enqueue(new Callback<WanResponse<User>>() {
+            @Override
+            public void onResponse(Call<WanResponse<User>> call, Response<WanResponse<User>> response) {
+                liveData.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<WanResponse<User>> call, Throwable t) {
+                liveData.postValue(null);
+            }
+        });
+        return liveData;
+    }
 }

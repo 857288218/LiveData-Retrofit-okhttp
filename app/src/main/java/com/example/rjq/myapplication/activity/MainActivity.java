@@ -8,11 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.rjq.myapplication.R;
-import com.example.rjq.myapplication.entity.Subject;
+import com.example.rjq.myapplication.entity.User;
+import com.example.rjq.myapplication.entity.WanResponse;
 import com.example.rjq.myapplication.http.HttpMethods;
 import com.example.rjq.myapplication.progress.LoadingDialog;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,11 +53,12 @@ public class MainActivity extends AppCompatActivity {
             loadingDialog = new LoadingDialog(this, R.style.ActionSheetDialogStyle);
         }
         loadingDialog.show();
-        HttpMethods.getInstance().getTopMovie(0, 10).observe(this, new Observer<List<Subject>>() {
+        HttpMethods.getInstance().login("15620419359", "rjq015").observe(this, new Observer<WanResponse<User>>() {
             @Override
-            public void onChanged(@Nullable List<Subject> subjects) {
+            public void onChanged(@Nullable WanResponse<User> subjects) {
                 loadingDialog.dismiss();
-                resultTV.setText(subjects.toString());
+                if (subjects != null)
+                    resultTV.setText(subjects.toString());
             }
         });
     }

@@ -9,10 +9,14 @@ import com.example.rjq.myapplication.entity.Subject;
 import com.example.rjq.myapplication.entity.User;
 import com.example.rjq.myapplication.entity.WanResponse;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -100,5 +104,25 @@ public class HttpMethods {
             }
         });
         return liveData;
+    }
+
+    //图文混传
+    public void uploadFile() {
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        File f = new File("本地url");
+        builder.addFormDataPart("img", f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
+        //builder.addFormDataPart("json",json字符串); 也可以这样传递json字符串,一般json字符串是用new Gson().toJson(obj)把对象转换成的，也可以解析list，这样就解析成jsonArray字符串了
+        builder.addFormDataPart("param", "value");
+        movieService.uploadFileAndString(builder.build()).enqueue(new Callback<WanResponse>() {
+            @Override
+            public void onResponse(Call<WanResponse> call, Response<WanResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<WanResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

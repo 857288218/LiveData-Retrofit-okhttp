@@ -11,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -22,6 +23,7 @@ public interface MovieService {
     @GET("top250")
     Call<HttpResult<List<Subject>>> getTopMovie(@Query("start") int start, @Query("count") int count);
 
+    @Headers("Content-type:application/x-www-form-urlencoded;charset=UTF-8") //添加请求头
     @FormUrlEncoded
     @POST("/user/login")
     //可以使用最原始的方法返回Call<WanResponse<User>>

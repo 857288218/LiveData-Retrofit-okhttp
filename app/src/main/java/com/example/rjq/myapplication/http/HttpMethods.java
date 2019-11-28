@@ -85,6 +85,12 @@ public class HttpMethods {
         movieService.loginAsync(name, pwd).enqueue(new Callback<WanResponse<User>>() {
             @Override
             public void onResponse(Call<WanResponse<User>> call, Response<WanResponse<User>> response) {
+                //读取response header
+                okhttp3.Response okRes = response.raw(); //Retrofit的Response转换为原生的OkHttp当中的Response
+                okRes.header("Cache-Control");
+                //获取了本次请求所有的响应头
+                response.headers();  //等于okRes.headers();
+
                 liveData.postValue(response.body());
             }
 

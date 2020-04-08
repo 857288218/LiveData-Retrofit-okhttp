@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -28,11 +29,15 @@ public interface MovieService {
 
     @Headers("Content-type:application/x-www-form-urlencoded;charset=UTF-8") //添加请求头
     @FormUrlEncoded
-    @POST("/user/login")
+    @POST("user/login")
     //可以使用最原始的方法返回Call<WanResponse<User>>
     Call<WanResponse<User>> loginAsync(@Field("username")String username, @Field("password")String password);
 
     @Multipart()
     @POST("api/files")
     Call<WanResponse> uploadFileAndString(@Part("file")MultipartBody multipartBody);
+
+    @FormUrlEncoded
+    @POST("api/users") //动态添加请求头
+    Call<WanResponse> uploadNewUser(@Header("Content-Type") String contentType, @Field("username") String username, @Field("gender") String male, @Field("age") int age);
 }

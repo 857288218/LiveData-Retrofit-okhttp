@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class HttpMethods {
 
-    public static final String BASE_URL = "https://www.wanandroid.com";
+    public static final String BASE_URL = "https://www.wanandroid.com/";
 
     private static final int DEFAULT_TIMEOUT = 8;
 
@@ -40,7 +40,7 @@ public class HttpMethods {
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
-        //为所有请求都加个该header
+        //为所有请求都加个该header,比如用户的id
         builder.addInterceptor(new HeaderInterceptor());
 
         retrofit = new Retrofit.Builder()

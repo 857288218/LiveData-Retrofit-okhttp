@@ -3,6 +3,7 @@ package com.example.rjq.myapplication.http;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.util.Log;
 
 import com.example.rjq.myapplication.entity.HttpResult;
 import com.example.rjq.myapplication.entity.Subject;
@@ -96,13 +97,13 @@ public class HttpMethods {
                 okRes.header("Cache-Control");
                 //获取了本次请求所有的响应头
                 response.headers();  //等于okRes.headers();
-
-                liveData.postValue(response.body());
+                Log.d("current thread", Thread.currentThread().getName());
+                liveData.setValue(response.body());
             }
 
             @Override
             public void onFailure(Call<WanResponse<User>> call, Throwable t) {
-                liveData.postValue(null);
+                liveData.setValue(null);
             }
         });
         return liveData;

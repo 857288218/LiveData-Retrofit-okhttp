@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             loadingDialog = new LoadingDialog(this, R.style.ActionSheetDialogStyle);
         }
         loadingDialog.show();
+        Log.d("current thread", Thread.currentThread().getName());
         HttpMethods.getInstance().login("15620419359", "rjq015").observe(this, new Observer<WanResponse<User>>() {
             @Override
             public void onChanged(@Nullable WanResponse<User> subjects) {

@@ -13,6 +13,7 @@ public class HeaderInterceptor implements Interceptor {
         Request request = chain.request();
         //为所有请求添加请求头
         Request requestOverwrite = request.newBuilder().header("User-Agent", "Android").build();
+        request.headers("urlName");
         return chain.proceed(requestOverwrite);
 
         //为所有请求添加响应头

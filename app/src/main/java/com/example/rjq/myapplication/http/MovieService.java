@@ -27,7 +27,7 @@ public interface MovieService {
     @GET("top250")
     Call<HttpResult<List<Subject>>> getTopMovie(@Query("start") int start, @Query("count") int count);
 
-    @Headers("Content-type:application/x-www-form-urlencoded;charset=UTF-8") //添加请求头
+    @Headers({"Content-type:application/x-www-form-urlencoded;charset=UTF-8", "urlname:mdffx"}) //添加请求头
     @FormUrlEncoded
     @POST("user/login")
     //可以使用最原始的方法返回Call<WanResponse<User>>

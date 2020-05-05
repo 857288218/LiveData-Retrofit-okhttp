@@ -43,7 +43,8 @@ public class HttpMethods {
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         //为所有请求都加个该header,比如用户的id
         builder.addInterceptor(new HeaderInterceptor());
-
+        //添加不同baseUrl
+        builder.addInterceptor(new MoreBaseUrlInterceptor());
         retrofit = new Retrofit.Builder()
                 .client(builder.build())
                 //modify by zqikai 20160317 for 对http请求结果进行统一的预处理 GosnResponseBodyConvert

@@ -9,7 +9,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MoreBaseUrlInterceptor implements Interceptor {
-    
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         //获取原始的originalRequest

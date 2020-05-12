@@ -17,8 +17,9 @@ public class HeaderInterceptor implements Interceptor {
         return chain.proceed(requestOverwrite);
 
         //为所有请求添加响应头
-        //Request request = chain.request();
-        //okhttp3.Response originalResponse = chain.proceed(request);
-        //return originalResponse.newBuilder().header("Cache-Control","max-age=100").build();
+//        Request request = chain.request();
+//        okhttp3.Response originalResponse = chain.proceed(request);
+//        originalResponse.headers();
+//        return originalResponse.newBuilder().header("Cache-Control","max-age=100").build();
     }
 }

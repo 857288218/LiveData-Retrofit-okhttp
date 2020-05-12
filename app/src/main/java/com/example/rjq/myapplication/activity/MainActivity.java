@@ -68,7 +68,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (loadingDialog != null && loadingDialog.isShowing())
+        if (loadingDialog != null && loadingDialog.isShowing()) {
             loadingDialog.dismiss();
+        }
+        if (HttpMethods.getInstance().wanResponseCallback != null) {
+            HttpMethods.getInstance().wanResponseCallback.cancel();
+        }
     }
 }

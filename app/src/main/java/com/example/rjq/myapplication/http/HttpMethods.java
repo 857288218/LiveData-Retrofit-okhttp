@@ -35,6 +35,8 @@ public class HttpMethods {
 
     private Retrofit retrofit;
     private MovieService movieService;
+    //放在vm中
+    public Call<WanResponse<User>> wanResponseCallback;
 
     //构造方法私有
     private HttpMethods() {
@@ -50,6 +52,7 @@ public class HttpMethods {
                 //modify by zqikai 20160317 for 对http请求结果进行统一的预处理 GosnResponseBodyConvert
                 .addConverterFactory(GsonConverterFactory.create())
 //                .addConverterFactory(ResponseConvertFactory.create())
+                .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                 .baseUrl(BASE_URL)
                 .build();
 
@@ -90,7 +93,8 @@ public class HttpMethods {
 
     public LiveData<WanResponse<User>> login(String name, String pwd) {
         final MutableLiveData<WanResponse<User>> liveData = new MutableLiveData<>();
-        movieService.loginAsync(name, pwd).enqueue(new Callback<WanResponse<User>>() {
+        wanResponseCallback = movieService.loginAsync(name, pwd);
+        wanResponseCallback.enqueue(new Callback<WanResponse<User>>() {
             @Override
             public void onResponse(Call<WanResponse<User>> call, Response<WanResponse<User>> response) {
                 //读取response header

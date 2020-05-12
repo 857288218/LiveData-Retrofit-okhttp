@@ -1,5 +1,7 @@
 package com.example.rjq.myapplication.http;
 
+import android.arch.lifecycle.LiveData;
+
 import com.example.rjq.myapplication.entity.HttpResult;
 import com.example.rjq.myapplication.entity.Subject;
 import com.example.rjq.myapplication.entity.User;
@@ -30,8 +32,14 @@ public interface MovieService {
     @Headers({"Content-type:application/x-www-form-urlencoded;charset=UTF-8", "urlname:mdffx"}) //添加请求头
     @FormUrlEncoded
     @POST("user/login")
-    //可以使用最原始的方法返回Call<WanResponse<User>>
+        //可以使用最原始的方法返回Call<WanResponse<User>>
     Call<WanResponse<User>> loginAsync(@Field("username")String username, @Field("password")String password);
+
+    @Headers({"Content-type:application/x-www-form-urlencoded;charset=UTF-8", "urlname:mdffx"}) //添加请求头
+    @FormUrlEncoded
+    @POST("user/login")
+        //可以使用最原始的方法返回Call<WanResponse<User>>
+    LiveData<WanResponse<User>> loginLive(@Field("username")String username, @Field("password")String password);
 
     @Multipart()
     @POST("api/files")

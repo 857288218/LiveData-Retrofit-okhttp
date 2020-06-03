@@ -20,7 +20,7 @@ public class MoreBaseUrlInterceptor implements Interceptor {
         Request.Builder builder = originalRequest.newBuilder();
         //获取头信息的集合如：manage,mdffx
         List<String> urlnameList = originalRequest.headers("urlname");
-        if (urlnameList != null && urlnameList.size() > 0) {
+        if (urlnameList.size() > 0) {
             //删除原有配置中的值,就是namesAndValues集合里的值
             builder.removeHeader("urlname");
             //获取头信息中配置的value,如：manage或者mdffx
@@ -28,9 +28,9 @@ public class MoreBaseUrlInterceptor implements Interceptor {
             HttpUrl baseURL = null;
             //根据头信息中配置的value,来匹配新的base_url地址
             if ("manage".equals(urlname)) {
-                baseURL = HttpUrl.parse("Api.base_url");
+                baseURL = HttpUrl.parse("https://www.manage.com/");
             } else if ("mdffx".equals(urlname)) {
-                baseURL = HttpUrl.parse("Api.base_url_mdffx");
+                baseURL = HttpUrl.parse("https://www.mdffx.com/");
             }
             //重建新的HttpUrl，需要重新设置的url部分
             HttpUrl newHttpUrl = oldUrl.newBuilder()

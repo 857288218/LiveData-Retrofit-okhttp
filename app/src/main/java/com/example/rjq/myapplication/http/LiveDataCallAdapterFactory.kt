@@ -43,11 +43,19 @@ class LiveDataCallAdapterFactory : Factory() {
                     if (flag.compareAndSet(false, true)) {
                         call!!.enqueue(object : Callback<R> {
                             override fun onFailure(call: Call<R>?, t: Throwable?) {
+                                //对当前网络情况差或者请求超时等网络请求延迟等一些错误处理。可以只弹toast
                                 postValue(null)
                             }
 
                             override fun onResponse(call: Call<R>?, response: Response<R>?) {
-                                postValue(response?.body())
+                                if (response?.isSuccessful == true) {
+                                    //The raw response body of an {@linkplain #isSuccessful() successful} response
+                                    value = response.body()
+                                } else {
+                                    //The raw response body of an {@linkplain #isSuccessful() unsuccessful} response
+                                    response?.errorBody()
+                                    //可以弹个toast
+                                }
                             }
                         })
                     }

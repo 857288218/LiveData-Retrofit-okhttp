@@ -110,7 +110,7 @@ public class HttpMethods {
             public void onSuccessful(Call<WanResponse<User>> call, Response<WanResponse<User>> response) {
                 liveData.setValue(response.body());
             }
-            
+
             //如果对某些错误特殊处理，重写onFail
         });
         return liveData;

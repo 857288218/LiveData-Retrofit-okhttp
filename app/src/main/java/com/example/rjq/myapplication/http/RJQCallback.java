@@ -10,7 +10,7 @@ public abstract class RJQCallback<T> implements Callback<T> {
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
-        if (200 == response.code()) {
+        if (response.isSuccessful()) {
             onSuccessful(call, response);
         } else {
             onFail(call, null, response);

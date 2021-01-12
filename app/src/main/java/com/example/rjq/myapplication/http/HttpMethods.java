@@ -118,7 +118,7 @@ public class HttpMethods {
                 if (response == null) {
                     liveData.setValue(new WanResponse<User>(-2, "当前网络不给力,请确认网络已连接" + t.getMessage(), null));
                 } else {
-                    //对后台返回(200..300)之间的错误进行处理
+                    //对后台返回不在[200..300)之间的错误码进行处理，即unsuccessful
                     try {
                         liveData.setValue(new WanResponse<User>(response.code(), response.errorBody().string(), null));
                     } catch (IOException e) {

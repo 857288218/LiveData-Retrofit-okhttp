@@ -9,7 +9,6 @@ import com.example.rjq.myapplication.entity.User;
 import com.example.rjq.myapplication.entity.WanResponse;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
@@ -111,22 +110,8 @@ public class HttpMethods {
             public void onSuccessful(Call<WanResponse<User>> call, Response<WanResponse<User>> response) {
                 liveData.setValue(response.body());
             }
-
-            @Override
-            protected void onFail(Call<WanResponse<User>> call, Throwable t, Response<WanResponse<User>> response) {
-                if (response == null) {
-                    //可以只弹toast
-                    liveData.setValue(new WanResponse<User>(-2, "当前网络不给力,请确认网络已连接" + t.getMessage(), null));
-                } else {
-                    //对后台返回不在[200..300)之间的错误码进行处理，即unsuccessful
-                    try {
-                        //可以只弹toast
-                        liveData.setValue(new WanResponse<User>(response.code(), response.errorBody().string(), null));
-                    } catch (IOException e) {
-                        Log.e(TAG, "errorBody解析错误:" + e.getMessage());
-                    }
-                }
-            }
+            
+            //如果对某些错误特殊处理，重写onFail
         });
         return liveData;
     }

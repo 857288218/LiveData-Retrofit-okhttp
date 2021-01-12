@@ -89,13 +89,14 @@ public class HttpMethods {
                 } else {
                     //对后台返回不在[200..300)之间的错误码进行处理，即unsuccessful
                     //errorBody is unsuccessful response; if {@link #code()} is in the range [200..300) is isSuccessful
+                    //可以只弹toast
                     liveData.setValue(new WanResponse<User>(response.code(), "服务器状态码异常：" + response.code(), null));
                 }
             }
 
             @Override
             public void onFailure(Call<WanResponse<User>> call, Throwable t) {
-                //对当前网络情况差或者请求超时等网络请求延迟等一些错误处理。
+                //对当前网络情况差或者请求超时等网络请求延迟等一些错误处理。可以只弹toast
                 liveData.setValue(new WanResponse<User>(-2, "当前网络不给力,请确认网络已连接" + t.getMessage(), null));
             }
         });
@@ -114,10 +115,12 @@ public class HttpMethods {
             @Override
             protected void onFail(Call<WanResponse<User>> call, Throwable t, Response<WanResponse<User>> response) {
                 if (response == null) {
+                    //可以只弹toast
                     liveData.setValue(new WanResponse<User>(-2, "当前网络不给力,请确认网络已连接" + t.getMessage(), null));
                 } else {
                     //对后台返回不在[200..300)之间的错误码进行处理，即unsuccessful
                     try {
+                        //可以只弹toast
                         liveData.setValue(new WanResponse<User>(response.code(), response.errorBody().string(), null));
                     } catch (IOException e) {
                         Log.e(TAG, "errorBody解析错误:" + e.getMessage());

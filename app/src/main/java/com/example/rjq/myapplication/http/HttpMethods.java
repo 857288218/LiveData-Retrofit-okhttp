@@ -77,7 +77,7 @@ public class HttpMethods {
             public void onResponse(Call<WanResponse<User>> call, Response<WanResponse<User>> response) {
                 //response.isSuccessful()方法的HTTP状态码是[200..300)之间，在这之间都算是请求成功
                 //并且在正常情况下只有200的时候后台才会返回数据，其他是没有数据的
-                if (200 == response.code()) {
+                if (response.isSuccessful()) {
                     //对后台返回的数据进行处理
                     //读取response header
                     okhttp3.Response okRes = response.raw(); //Retrofit的Response转换为原生的OkHttp当中的Response
@@ -87,10 +87,8 @@ public class HttpMethods {
                     Log.d("current thread", Thread.currentThread().getName());
                     liveData.setValue(response.body());
                 } else {
-                    //对后台返回(200..300)之间的错误进行处理
-
+                    //对后台返回不在[200..300)之间的错误码进行处理，即unsuccessful
                     //errorBody is unsuccessful response; if {@link #code()} is in the range [200..300) is isSuccessful
-                    response.errorBody();
                     liveData.setValue(new WanResponse<User>(response.code(), "服务器状态码异常：" + response.code(), null));
                 }
             }

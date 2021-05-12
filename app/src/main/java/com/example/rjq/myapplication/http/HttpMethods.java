@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * 相当于内核,调用接口返回一个liveData
+ * Repository层，在ViewModel中持有该对象调用该层接口请求数据
  */
 public class HttpMethods {
 
